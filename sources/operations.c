@@ -6,13 +6,12 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:54:28 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/17 21:02:19 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:14:20 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// Voir pour refactoriser les fonctions de swap
 // sa -> swap a
 t_list    *sa(t_list *a)
 {

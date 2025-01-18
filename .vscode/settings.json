@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "ft_atoi.c": "cpp"
+        "ft_atoi.c": "cpp",
+        "push_swap.h": "c"
     }
 }

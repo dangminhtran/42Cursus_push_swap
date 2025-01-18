@@ -6,28 +6,41 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/17 21:12:02 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:30:11 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 int main(int argc, char **argv)
 {
-// verifier le nombre d'arguments
+    t_stack *stack_a;
+    t_stack *stack_b;
+    
     if (argc < 2)
     {
         write(1, "Error\n", 6);
         return (0);
     }
-    
-// verifier si les arguments sont des nombres
-check_args(argc, argv);
-// verifier si les nombres sont uniques
-check_uniques(argc, argv);
-// verifier si les nombres sont dans la bonne plage
-check_range(argc, argv);
+// faire le parsing  
+check_args(argv);
+check_uniques(argv);
+check_range(argv);
+check_order(argv);
 
+ // faire la logique
+stack_a = init_stack(argv);
+stack_b = init_stack(NULL);
+
+// faire les operations
+push_swap(&stack_a, &stack_b);
+
+// afficher les operations
+print_operations(stack_a->head, stack_b->head);
+
+// free les piles !!
+free_stack(stack_a);
+free_stack(stack_b);
+return (0);
 }
-// apres parsing, verifier si les nombres sont dans le bon ordre
+
