@@ -12,49 +12,70 @@
 
 #include "push_swap.h"
 
-// Initialiser la pile
-t_stack *init_stack(char **argv)
+t_stack *init_stack(void)
 {
-    t_stack *stack;
-    
-    stack = malloc(sizeof(t_stack));
-    if (!stack)
-        return (NULL);
+    t_stack *stack = malloc(sizeof(t_stack));
+    if (stack == NULL)
+    {
+        perror("Erreur d'allocation de mémoire pour la pile");
+        exit(EXIT_FAILURE);
+    }
     stack->head = NULL;
     stack->size = 0;
-    int i = 1;
-    while (argv[i])
-    {
-        push_element(&stack, ft_atoi(argv[i]));
-        i++;
-    }
     return (stack);
+}
+
+// Pour remplir la pile
+int fill_stack(t_stack *stack, char **args, int argc)
+{
+    for (int i = 0; i < argc - 1; i++)
+    {
+        t_list *new_node = malloc(sizeof(t_list));
+        if (!new_node)
+            return (0);
+
+        new_node->number = ft_atoi(args[i]);
+        new_node->next = stack->head; // Ajout au début
+        stack->head = new_node;
+        stack->size++;
+    }
+    return (1);
 }
 
 // Liberer la pile
 void free_stack(t_stack *stack)
 {
-    t_list *tmp;
-    while (stack->head)
+    t_list *current = stack->head;
+    t_list *temp;
+
+    while (current)
     {
-        tmp = stack->head;
-        stack->head = stack->head->next;
-        free(tmp);
+        temp = current;
+        current = current->next;
+        free(temp);
     }
     free(stack);
 }
 
-// afficher les operations
-void print_operations(t_list *a, t_list *b)
+void error_exit(t_stack *stack_a, t_stack *stack_b)
 {
-    while (a)
+    if (stack_a)
+        free_stack(stack_a);
+    if (stack_b)
+        free_stack(stack_b);
+    fprintf(stderr, "Error\n");
+    exit(EXIT_FAILURE);
+}
+
+
+// Pour débugguer
+void print_stack(t_stack *stack)
+{
+    t_list *current = stack->head;
+    while (current)
     {
-        printf("%d\n", a->number);
-        a = a->next;
+        printf("Current number : %d\n ", current->number);
+        current = current->next;
     }
-    while (b)
-    {
-        printf("%d\n", b->number);
-        b = b->next;
-    }
+    printf("\n");
 }

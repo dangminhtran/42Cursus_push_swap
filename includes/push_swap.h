@@ -31,30 +31,37 @@ typedef struct s_stack
 }			t_stack;
 
 // OPERATIONS
-t_list	*sa(t_list *a);
-t_list	*sb(t_list *b);
-t_list	*ss(t_list *a, t_list *b);
-t_list	*pa(t_list *a, t_list *b);
-t_list	*pb(t_list *a, t_list *b);
-t_list	*ra(t_list *a);
-t_list	*rb(t_list *b);
-t_list	*rr(t_list *a, t_list *b);
-t_list	*rra(t_list *a);
-t_list	*rrb(t_list *b);
-t_list	*rrr(t_list *a, t_list *b);
+void sa(t_list **a);
+void sb(t_list **b);
+void ss(t_list **a, t_list **b);
+void pa(t_list **a, t_list **b);
+void pb(t_list **stack_a, t_list **stack_b);
+void ra(t_list **stack);
+void rb(t_list **b);
+void rr(t_list **a, t_list **b);
+void rra(t_list **stack);
+void rrb(t_list **b);
+void rrr(t_list **a, t_list **b);
 
 // PARSING
 int check_args(char **argv);
 int check_uniques(char **argv);
 int check_range(char **argv);
 int check_order(char **argv);
+char **parse_args(int argc, char **argv);
+void free_args(char **args, int argc);
+int validate_args(char **args, int argc);
 
 // LOGIC
-t_stack *init_stack(char **argv);
+t_stack *init_stack(void);
+int fill_stack(t_stack *stack, char **args, int argc);
 void free_stack(t_stack *stack);
-void print_operations(t_list *a, t_list *b);
-
-int push_element(t_stack **stack, int value);
-int push_swap(t_stack **stack_a, t_stack **stack_b);
+void error_exit(t_stack *stack_a, t_stack *stack_b);
+void print_stack(t_stack *stack);
+int is_sorted(t_stack *stack);
+void sort_small_stack(t_stack *stack_a);
+int find_min_index(t_list *stack);
+void bring_min_to_top(t_stack *stack_a);
+void push_swap(t_stack **stack_a, t_stack **stack_b);
 
 #endif

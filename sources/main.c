@@ -16,31 +16,74 @@ int main(int argc, char **argv)
 {
     t_stack *stack_a;
     t_stack *stack_b;
+    char **args = NULL;
     
     if (argc < 2)
     {
         write(1, "Error\n", 6);
         return (0);
     }
-// faire le parsing  
-check_args(argv);
-check_uniques(argv);
-check_range(argv);
-check_order(argv);
+    // faire le parsing  
+    check_args(argv);
+    check_uniques(argv);
+    check_range(argv);
+    if (!check_args(argv) || !check_uniques(argv) || !check_range(argv))
+    {
+        write(2, "Error\n", 6);
+        free_stack(stack_a);
+        free_stack(stack_b);
+        return (0);
+    }
+    check_order(argv);
+    if (check_order(argv))
+    {
+        free_stack(stack_a);
+        free_stack(stack_b);
+        return (0);
+    }
 
- // faire la logique
-stack_a = init_stack(argv);
-stack_b = init_stack(NULL);
+    // faire la logique
+    stack_a = init_stack();
+    stack_b = init_stack();
 
-// faire les operations
-push_swap(&stack_a, &stack_b);
+    if (!stack_a || !stack_b)
+    error_exit(stack_a, stack_b);
 
-// afficher les operations
-print_operations(stack_a->head, stack_b->head);
+    args = parse_args(argc, argv);
+    if (!args)
+        error_exit(stack_a, stack_b);
 
-// free les piles !!
-free_stack(stack_a);
-free_stack(stack_b);
-return (0);
+    if (!validate_args(args, argc)) // Validation des arguments
+    {
+        free_args(args, argc);
+        error_exit(stack_a, stack_b);
+    }
+
+    // Initialisez stack_a avec les arguments
+    if (!fill_stack(stack_a, args, argc))
+    {
+        free_args(args, argc);
+        error_exit(stack_a, stack_b);
+    }
+
+    // Pour débugguer
+    printf("Pile A (initiale) : ");
+    print_stack(stack_a);
+
+    // Appeler push_swap
+    push_swap(&stack_a, &stack_b);
+
+     // Débogage : afficher les piles après tri
+    printf("Pile A (triée) : ");
+    print_stack(stack_a);
+    printf("Pile B - main : ");
+    print_stack(stack_b);
+
+    // Nettoyez la mémoire
+    free_args(args, argc);
+    free_stack(stack_a);
+    free_stack(stack_b);
+
+    return (0);
 }
 

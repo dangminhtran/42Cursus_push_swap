@@ -23,8 +23,7 @@ int check_args(char **argv)
         {
             if (argv[i][j] < '0' || argv[i][j] > '9')
             {
-                // Mettre l'erreur sur la sortie d'erreur ?
-                write(1, "Error\n", 6);
+                // write(2, "Error\n", 6);
                 return (0);
             }
             j++;
@@ -45,7 +44,7 @@ int check_uniques(char **argv)
         {
             if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
             {
-                write(1, "Error\n", 6);
+                // write(2 "Error\n", 6);
                 return (0);
             }
             j++;
@@ -60,9 +59,9 @@ int check_range(char **argv)
     int i = 1;
     while (argv[i])
     {
-        if (ft_atoi(argv[i]) > 2147483647 || ft_atoi(argv[i]) < -2147483648)
+        if (ft_atoi(argv[i]) > 2147483647 || ft_atoi(argv[i]) < -2147483647)
         {
-            write(1, "Error\n", 6);
+            // write(2, "Error\n", 6);
             return (0);
         }
         i++;
@@ -74,16 +73,83 @@ int check_range(char **argv)
 int check_order(char **argv)
 {
     int i = 1;
-    while (argv[i])
+
+    while (argv[i] && argv[i + 1])
     {
         if (ft_atoi(argv[i]) > ft_atoi(argv[i + 1]))
         {
-            write(1, "Error\n", 6);
+        //    write(2, "Error\n", 6);
             return (0);
         }
         i++;
     }
     return (1);
+}
+
+char **parse_args(int argc, char **argv)
+{
+    char **args = malloc(sizeof(char *) * argc);
+    if (!args)
+        return (NULL);
+
+    for (int i = 1; i < argc; i++)
+    {
+        args[i - 1] = strdup(argv[i]);
+        if (!args[i - 1])
+        {
+            free_args(args, i - 1);
+            return (NULL);
+        }
+    }
+    args[argc - 1] = NULL;
+    return (args);
+}
+
+void free_args(char **args, int argc)
+{
+    for (int i = 0; i < argc; i++)
+        free(args[i]);
+    free(args);
+}
+
+int validate_args(char **args, int argc)
+{
+    // Vérifier que chaque argument est un nombre valide
+    for (int i = 0; i < argc - 1; i++)
+    {
+        char *arg = args[i];
+        int j = 0;
+
+        // Vérifier si chaque caractère est un chiffre
+        if (arg[j] == '-' || arg[j] == '+')  // Permettre les signes négatifs et positifs
+            j++;
+        while (arg[j])
+        {
+            if (arg[j] < '0' || arg[j] > '9')
+                return (0);  // Si ce n'est pas un chiffre, retournez une erreur
+            j++;
+        }
+    }
+
+    // Vérifier si les arguments sont dans la plage valide
+    for (int i = 0; i < argc - 1; i++)
+    {
+        long long num = ft_atoi(args[i]);
+        if (num > 2147483647 || num < -2147483647)
+            return (0);  // Si un nombre est hors de la plage valide, retournez une erreur
+    }
+
+    // Vérifier l'unicité des arguments
+    for (int i = 0; i < argc - 1; i++)
+    {
+        for (int j = i + 1; j < argc - 1; j++)
+        {
+            if (ft_atoi(args[i]) == ft_atoi(args[j]))
+                return (0);  // Si un nombre est dupliqué, retournez une erreur
+        }
+    }
+
+    return (1);  // Si toutes les vérifications passent, les arguments sont valides
 }
 
 
