@@ -53,13 +53,12 @@ int main(int argc, char **argv)
     if (!args)
         error_exit(stack_a, stack_b);
 
-    if (!validate_args(args, argc)) // Validation des arguments
+    if (!validate_args(args, argc))
     {
         free_args(args, argc);
         error_exit(stack_a, stack_b);
     }
 
-    // Initialisez stack_a avec les arguments
     if (!fill_stack(stack_a, args, argc))
     {
         free_args(args, argc);
@@ -70,16 +69,14 @@ int main(int argc, char **argv)
     printf("Pile A (initiale) : ");
     print_stack(stack_a);
 
-    // Appeler push_swap
     push_swap(&stack_a, &stack_b);
 
-     // Débogage : afficher les piles après tri
+    // Pour débugguer
     printf("Pile A (triée) : ");
     print_stack(stack_a);
     printf("Pile B - main : ");
     print_stack(stack_b);
 
-    // Nettoyez la mémoire
     free_args(args, argc);
     free_stack(stack_a);
     free_stack(stack_b);

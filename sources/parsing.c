@@ -121,12 +121,12 @@ int validate_args(char **args, int argc)
         int j = 0;
 
         // Vérifier si chaque caractère est un chiffre
-        if (arg[j] == '-' || arg[j] == '+')  // Permettre les signes négatifs et positifs
+        if (arg[j] == '-' || arg[j] == '+')
             j++;
         while (arg[j])
         {
             if (arg[j] < '0' || arg[j] > '9')
-                return (0);  // Si ce n'est pas un chiffre, retournez une erreur
+                return (0);
             j++;
         }
     }
@@ -136,7 +136,7 @@ int validate_args(char **args, int argc)
     {
         long long num = ft_atoi(args[i]);
         if (num > 2147483647 || num < -2147483647)
-            return (0);  // Si un nombre est hors de la plage valide, retournez une erreur
+            return (0);
     }
 
     // Vérifier l'unicité des arguments
@@ -145,11 +145,11 @@ int validate_args(char **args, int argc)
         for (int j = i + 1; j < argc - 1; j++)
         {
             if (ft_atoi(args[i]) == ft_atoi(args[j]))
-                return (0);  // Si un nombre est dupliqué, retournez une erreur
+                return (0);
         }
     }
 
-    return (1);  // Si toutes les vérifications passent, les arguments sont valides
+    return (1);
 }
 
 

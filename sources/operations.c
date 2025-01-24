@@ -33,16 +33,16 @@ void sb(t_list **b)
     if (!*b || !(*b)->next)
         return;
 
-    tmp = (*b)->next;         // Sauvegarder le second élément
-    (*b)->next = tmp->next;   // Relier le premier élément au troisième élément
-    tmp->next = *b;           // Mettre le second élément en tête
-    *b = tmp;                 // Mettre à jour la tête de b
+    tmp = (*b)->next;
+    (*b)->next = tmp->next;
+    tmp->next = *b;
+    *b = tmp; 
 }
 
 void ss(t_list **a, t_list **b)
 {
-    sa(a);  // Effectuer le swap sur la pile a
-    sb(b);  // Effectuer le swap sur la pile b
+    sa(a);
+    sb(b);
 }
 
 void pa(t_list **a, t_list **b)
@@ -66,10 +66,10 @@ void pb(t_list **stack_a, t_list **stack_b)
     if (*stack_a == NULL) // Vérifier si la pile A est vide
         return;
 
-    tmp = (*stack_a)->next;  // Sauvegarder l'élément suivant de A
-    (*stack_a)->next = *stack_b; // Relier l'élément courant de A au sommet de B
-    *stack_b = *stack_a;     // Mettre à jour la tête de B
-    *stack_a = tmp;          // Mettre à jour la tête de A (élément suivant)
+    tmp = (*stack_a)->next;
+    (*stack_a)->next = *stack_b;
+    *stack_b = *stack_a;
+    *stack_a = tmp;
 }
 
 void ra(t_list **stack)
@@ -108,8 +108,8 @@ void rb(t_list **b)
 
 void rr(t_list **a, t_list **b)
 {
-    ra(a);  // Effectuer une rotation sur a
-    rb(b);  // Effectuer une rotation sur b
+    ra(a);
+    rb(b);
 }
 
 void rra(t_list **stack)

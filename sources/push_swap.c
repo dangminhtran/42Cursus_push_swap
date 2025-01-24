@@ -25,7 +25,7 @@ int is_sorted(t_stack *stack)
     return (1);
 }
 
-// Pour trier les piles de 2 ou 3
+// Pour trier les piles de 2 à 3
 void sort_small_stack(t_stack *stack_a)
 {
     int a = stack_a->head->number;
@@ -56,7 +56,7 @@ int find_min_index(t_list *stack)
         if (stack == NULL)
         {
             fprintf(stderr, "Erreur : pile vide\n");
-            return -1;  // Ou toute valeur signalant une erreur
+            return -1;
         }
     int min = stack->number;
     int index = 0;
@@ -65,7 +65,6 @@ int find_min_index(t_list *stack)
 
     while (current)
     {
-    //    printf("Inspecting: %d at index %d\n", current->number, index);
         if (current->number < min)
         {
             min = current->number;
@@ -84,7 +83,7 @@ void bring_min_to_top(t_stack *stack_a)
 
     int min_index = find_min_index(stack_a->head);
 
-    // Si l'élément est dans la première moitié, utilisez `ra`, sinon `rra`
+    // Si l'élément est dans la première moitié
     if (min_index <= stack_a->size / 2)
     {
         while (min_index-- > 0)
@@ -113,8 +112,8 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
         return;
     }
 
-    printf("Avant pb : ");
-    print_stack(*stack_a);
+    // printf("Avant pb : ");
+    // print_stack(*stack_a);
 
     // Diviser la pile A (envoyer des éléments dans B)
     while ((*stack_a)->size > 3)
@@ -125,14 +124,14 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
             return;
         }
 
-        printf("Avant bring_min_to_top : ");
-        print_stack(*stack_a);
+        // printf("Avant bring_min_to_top : ");
+        // print_stack(*stack_a);
 
         // Déplacer le plus petit élément en haut de la pile A
         bring_min_to_top(*stack_a); 
 
-        printf("Après bring_min_to_top : ");
-        print_stack(*stack_a);
+        // printf("Après bring_min_to_top : ");
+        // print_stack(*stack_a);
 
         // Vérification avant de faire un pb
         if ((*stack_a)->head == NULL)
@@ -166,14 +165,12 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
             }
             else
             {
-                (*stack_a)->size = 0; // Pile A vide
+                (*stack_a)->size = 0;
                 printf("SWAP - stack a: (vide)\n");
             }
         }
-        // (*stack_a)->size--;
         (*stack_b)->size++;
 
-        // Vérification des tailles des piles après modification
         if ((*stack_a)->size < 0 || (*stack_b)->size < 0)
         {
             fprintf(stderr, "Erreur taille des piles après pb : A = %d, B = %d\n", (*stack_a)->size, (*stack_b)->size);
