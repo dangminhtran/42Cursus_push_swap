@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/18 19:30:11 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:50:10 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,22 @@ int main(int argc, char **argv)
     t_stack *stack_a;
     t_stack *stack_b;
     char **args = NULL;
+
+    stack_a = NULL;
+    stack_b = NULL;
     
     if (argc < 2)
     {
         write(1, "Error\n", 6);
         return (0);
     }
-    // faire le parsing  
+    // Faire le parsing  
     check_args(argv);
     check_uniques(argv);
     check_range(argv);
     if (!check_args(argv) || !check_uniques(argv) || !check_range(argv))
     {
+        // TODO - Passer sur la sortie erreur - PERROR ?
         write(2, "Error\n", 6);
         free_stack(stack_a);
         free_stack(stack_b);
@@ -42,7 +46,6 @@ int main(int argc, char **argv)
         return (0);
     }
 
-    // faire la logique
     stack_a = init_stack();
     stack_b = init_stack();
 
@@ -66,18 +69,18 @@ int main(int argc, char **argv)
     }
 
     // Pour débugguer
-    printf("Pile A (initiale) : ");
-    print_stack(stack_a);
+    // printf("Pile A (initiale) : ");
+    // print_stack(stack_a);
 
     push_swap(&stack_a, &stack_b);
 
     // Pour débugguer
-    printf("Pile A (triée) : ");
-    print_stack(stack_a);
-    printf("Pile B - main : ");
-    print_stack(stack_b);
+    // printf("Pile A (triée) : ");
+    // print_stack(stack_a);
+    // printf("Pile B - main : ");
+    // print_stack(stack_b);
 
-    free_args(args, argc);
+    free_args(args, argc); 
     free_stack(stack_a);
     free_stack(stack_b);
 

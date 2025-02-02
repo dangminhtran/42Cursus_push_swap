@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:22:50 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/18 19:19:28 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:49:08 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void sort_small_stack(t_stack *stack_a)
 int find_min_index(t_list *stack)
 {
         if (stack == NULL)
-        {
-            fprintf(stderr, "Erreur : pile vide\n");
+   //     {
+    //        fprintf(stderr, "Erreur : pile vide\n");
             return -1;
-        }
+    //  }
     int min = stack->number;
     int index = 0;
     int min_index = 0;
@@ -87,122 +87,172 @@ void bring_min_to_top(t_stack *stack_a)
     if (min_index <= stack_a->size / 2)
     {
         while (min_index-- > 0)
-        {
+    //    {
             ra(&(stack_a->head));
-            printf("Après ra - head : %d\n", stack_a->head->number);
-        }
+    //        printf("Après ra - head : %d\n", stack_a->head->number);
+    //    }
     }
     else
     {
         min_index = stack_a->size - min_index;
         while (min_index-- > 0)
-        {
+    //    {
             rra(&(stack_a->head));
-            printf("Après rra - head : %d\n", stack_a->head->number);
-        }
+    //        printf("Après rra - head : %d\n", stack_a->head->number);
+    //    }
     }
 }
 
 // Fonction principale
+// void push_swap(t_stack **stack_a, t_stack **stack_b)
+// {
+//     if (stack_a == NULL || *stack_a == NULL || (*stack_a)->head == NULL)
+// //    {
+// //        fprintf(stderr, "Erreur avant while - push_swap : pile A vide\n");
+//         return;
+// //    }
+
+//     // Diviser la pile A (envoyer des éléments dans B)
+//     while ((*stack_a)->size > 3)
+//     {
+//         if ((*stack_a)->head == NULL || (*stack_a)->size <= 0)
+//     //    {
+//     //        fprintf(stderr, "Erreur dans while - push_swap : pile A vide\n");
+//             return;
+//     //    }
+        
+//         bring_min_to_top(*stack_a); 
+
+//         // Vérification avant de faire un pb
+//         if ((*stack_a)->head == NULL || (*stack_a)->head->next == NULL)
+//     //    {
+//     //        fprintf(stderr, "Erreur avant pb : stack_a est NULL\n");
+//             return;
+//     //    }
+  
+//     //    printf("Push_swap avant pb - stack a->number: %d, stack_a->next->number: %d\n", (*stack_a)->head->number, (*stack_a)->head->next->number);
+
+//         pb(&((*stack_a)->head), &((*stack_b)->head)); 
+ 
+//         if (!((*stack_a)->head->next))
+//     //    {
+//     //        fprintf(stderr, "Erreur après pb : stack_a->head->next n'existe pas\n");
+//             return;
+//     //    }
+//         // else 
+//         // {
+//         //     printf("Push_swap apres pb - stack a->next->number: %d, stack_a->number: %d\n", (*stack_a)->head->next->number, (*stack_a)->head->number);
+//         // }
+//         // printf("Push_swap après pb - stack b: ");
+//         // print_stack(*stack_b);
+
+//         // printf("Après pb - stack a: ");
+//         // print_stack(*stack_a);
+
+//         if ((*stack_a)->head != NULL)
+//             (*stack_a)->size--;
+//         else
+//             (*stack_a)->size = 0;
+
+//         (*stack_b)->size++;
+
+//         printf("Size A: %d\n", (*stack_a)->size);
+//         printf("Size B: %d\n", (*stack_b)->size);
+
+//         if ((*stack_a)->size < 0 || (*stack_b)->size < 0)
+//         // {
+//         //     fprintf(stderr, "Erreur taille des piles après pb : A = %d, B = %d\n", (*stack_a)->size, (*stack_b)->size);
+//             return;
+//         //}
+//     }
+
+//     // printf("Pile B : ");
+//     // print_stack(*stack_b);
+
+//     if ((*stack_a)->size == 3)
+//         sort_small_stack(*stack_a);
+//     // Réinsérer les éléments de B dans A en ordre croissant
+//     while ((*stack_b)->size > 0)
+//     {
+//         if ((*stack_b)->head == NULL || (*stack_b)->head->next == NULL)
+//         {
+//             pa(&((*stack_a)->head), &((*stack_b)->head));
+//             return;
+//         }
+//         else 
+//         {
+//         // Déplacer l'élément du sommet de B vers A
+//         pa(&((*stack_a)->head), &((*stack_b)->head));
+//         (*stack_a)->size++;
+//         (*stack_b)->head = (*stack_b)->head->next;
+//         (*stack_b)->size--;
+//         }
+//     }
+
+//     if (!is_sorted(*stack_a))  
+//     {
+//         while (!is_sorted(*stack_a))
+//    //     {
+//             ra(&((*stack_a)->head));
+//     //        printf("Après ra : ");
+//     //        print_stack(*stack_a);
+//     //    }
+//     }
+// }
+
 void push_swap(t_stack **stack_a, t_stack **stack_b)
 {
     if (stack_a == NULL || *stack_a == NULL || (*stack_a)->head == NULL)
-    {
-        fprintf(stderr, "Erreur Avant While - push_swap : pile A vide\n");
         return;
-    }
 
-    // printf("Avant pb : ");
-    // print_stack(*stack_a);
-
-    // Diviser la pile A (envoyer des éléments dans B)
     while ((*stack_a)->size > 3)
     {
         if ((*stack_a)->head == NULL || (*stack_a)->size <= 0)
-        {
-            fprintf(stderr, "Erreur dans while - push_swap : pile A vide\n");
             return;
-        }
-
-        // printf("Avant bring_min_to_top : ");
-        // print_stack(*stack_a);
-
-        // Déplacer le plus petit élément en haut de la pile A
+        
         bring_min_to_top(*stack_a); 
 
-        // printf("Après bring_min_to_top : ");
-        // print_stack(*stack_a);
-
-        // Vérification avant de faire un pb
-        if ((*stack_a)->head == NULL)
-        {
-            fprintf(stderr, "Erreur avant pb : stack_a est NULL\n");
+        if ((*stack_a)->head == NULL || (*stack_a)->head->next == NULL)
             return;
-        }
-        // TODO - ICI PROBLEME SEGFAULT
-        printf("SWAP 1 - stack a: %d\n", (*stack_a)->head->next->number);
 
         pb(&((*stack_a)->head), &((*stack_b)->head)); 
+ 
+        if (!((*stack_a)->head->next))
+            return;
+            
+        if ((*stack_a)->head != NULL)
+            (*stack_a)->size--;
+        else
+            (*stack_a)->size = 0;
 
-        printf("SWAP 2 - stack a: %d\n", (*stack_a)->head->next->number);
-        printf("Après pb - stack b: ");
-        print_stack(*stack_b);
-
-        printf("Après pb - stack a: ");
-        print_stack(*stack_a);
-
-        // printf("ICI - size A: %d\n", (*stack_a)->size);
-        // printf("ICI - size B: %d\n", (*stack_b)->size);
-
-           if ((*stack_a)->head != NULL)
-        {
-            (*stack_a)->head = (*stack_a)->head->next; 
-            printf("SWAP 3 - stack a: %d\n", (*stack_a)->head->next->number);
-            if ((*stack_a)->head != NULL)
-            {
-                printf("SWAP 4 - stack a: %d\n", (*stack_a)->head->next->number);
-                (*stack_a)->size--;
-            }
-            else
-            {
-                (*stack_a)->size = 0;
-                printf("SWAP - stack a: (vide)\n");
-            }
-        }
         (*stack_b)->size++;
 
         if ((*stack_a)->size < 0 || (*stack_b)->size < 0)
-        {
-            fprintf(stderr, "Erreur taille des piles après pb : A = %d, B = %d\n", (*stack_a)->size, (*stack_b)->size);
             return;
-        }
     }
-
-    printf("Pile B : ");
-    print_stack(*stack_b);
 
     if ((*stack_a)->size == 3)
-    {
         sort_small_stack(*stack_a);
-    }
 
-    // Réinsérer les éléments de B dans A en ordre croissant
     while ((*stack_b)->size > 0)
     {
-        // Déplacer l'élément du sommet de B vers A
-        pa(&((*stack_a)->head), &((*stack_b)->head));
-        (*stack_a)->size++;
-        (*stack_b)->head = (*stack_b)->head->next; // Mettre à jour la tête de B
-        (*stack_b)->size--;
+        if ((*stack_b)->head == NULL || (*stack_b)->head->next == NULL)
+        {
+            pa(&((*stack_a)->head), &((*stack_b)->head));
+            return;
+        }
+        else 
+        {
+            pa(&((*stack_a)->head), &((*stack_b)->head));
+            (*stack_a)->size++;
+            (*stack_b)->head = (*stack_b)->head->next;
+            (*stack_b)->size--;
+        }
     }
 
     if (!is_sorted(*stack_a))  
     {
         while (!is_sorted(*stack_a))
-        {
-            ra(&((*stack_a)->head)); // Effectuer une rotation pour trier
-            printf("Après ra : ");
-            print_stack(*stack_a);
-        }
+            ra(&((*stack_a)->head));
     }
 }

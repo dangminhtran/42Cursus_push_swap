@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:50:12 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/18 19:10:37 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 18:20:50 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void print_stack(t_stack *stack)
     t_list *current = stack->head;
     while (current)
     {
-        printf("Current number : %d\n ", current->number);
+        printf("%d\n", current->number);
         current = current->next;
     }
     printf("\n");
