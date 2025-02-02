@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:50:12 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/02 18:20:50 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:03:53 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void error_exit(t_stack *stack_a, t_stack *stack_b)
         free_stack(stack_a);
     if (stack_b)
         free_stack(stack_b);
-    fprintf(stderr, "Error\n");
+//    fprintf(stderr, "Error\n");
+    write(1, "Error in error_exit function\n", 6);
     exit(EXIT_FAILURE);
 }
 

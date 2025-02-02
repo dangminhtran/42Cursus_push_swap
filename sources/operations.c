@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:54:28 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/02 19:29:12 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:52:19 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void pb(t_list **stack_a, t_list **stack_b)
     (*stack_a)->next = *stack_b;
     *stack_b = *stack_a;
     *stack_a = tmp;
+    // TODO - Avec STDOUT
     printf("pb\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/02 19:09:12 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 20:55:42 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     
     if (argc < 2)
     {
-        write(1, "Error\n", 6);
+        write(1, "Error - missing args\n", 21);
         return (0);
     }
     // Faire le parsing  
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     if (!check_args(argv) || !check_uniques(argv) || !check_range(argv))
     {
         // TODO - Passer sur la sortie erreur - PERROR ?
-        write(2, "Error\n", 6);
+        write(1, "Error with the args\n", 20);
         free_stack(stack_a);
         free_stack(stack_b);
         return (0);
@@ -68,17 +68,11 @@ int main(int argc, char **argv)
         error_exit(stack_a, stack_b);
     }
 
-    // Pour débugguer
-    printf("Pile A (initiale) : ");
-    print_stack(stack_a);
-
     push_swap(&stack_a, &stack_b);
 
     // Pour débugguer
-    printf("Pile A (triée) : ");
-    print_stack(stack_a);
-    printf("Pile B - main : ");
-    print_stack(stack_b);
+    // printf("Pile A (triée) : ");
+    // print_stack(stack_a);
 
     free_args(args, argc); 
     free_stack(stack_a);
