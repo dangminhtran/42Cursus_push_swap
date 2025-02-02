@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:54:28 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/02 18:52:22 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:29:12 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ void ss(t_list **a, t_list **b)
     sb(b);
 }
 
-void pa(t_list **a, t_list **b)
+void pa(t_list **stack_a, t_list **stack_b)
 {
     t_list *tmp;
 
-    if (!*b)
+    if (*stack_b == NULL)
         return;
 
-    tmp = (*b)->next;  // Sauvegarder le second élément de b
-    (*b)->next = *a;   // Relier le sommet de b au sommet de a
-    *a = *b;           // Mettre à jour a pour pointer sur le sommet de b
-    *b = tmp;          // Mettre à jour b pour pointer sur l'élément suivant
+    tmp = (*stack_b)->next;  // Sauvegarder le second élément de b
+    (*stack_b)->next = *stack_a;   // Relier le sommet de b au sommet de a
+    *stack_a = *stack_b;           // Mettre à jour a pour pointer sur le sommet de b
+    *stack_b = tmp;          // Mettre à jour b pour pointer sur l'élément suivant
      printf("pa\n");
 }
 
