@@ -16,7 +16,7 @@ CC=cc
 
 CFLAGS= -Wall -Wextra -Werror -I${HEADER_DIR} -g
 
-SRCS_DIR = 	$(addprefix sources/, operations.c parsing.c logic.c push_swap.c main.c) $(LIBFT)
+SRCS_DIR = 	$(addprefix sources/,  parsing.c logic.c push_swap_bis.c main.c push.c swap.c rotate.c reverse_rotate.c) $(LIBFT)
 
 SRCS_OBJ = ${SRCS_DIR:.c=.o}
 

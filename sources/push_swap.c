@@ -54,10 +54,8 @@ void sort_small_stack(t_stack *stack_a)
 int find_min_index(t_list *stack)
 {
         if (stack == NULL)
-   //     {
-   //         fprintf(stderr, "Erreur : pile vide\n");
             return -1;
-   //     }
+
     int min = stack->number;
     int index = 0;
     int min_index = 0;
@@ -87,21 +85,115 @@ void bring_min_to_top(t_stack *stack_a)
     if (min_index <= stack_a->size / 2)
     {
         while (min_index-- > 0)
-   //     {
             ra(&(stack_a->head));
-  //          printf("Après ra - head : %d\n", stack_a->head->number);
- //       }
     }
     else
     {
         min_index = stack_a->size - min_index;
         while (min_index-- > 0)
-   //     {
             rra(&(stack_a->head));
-   //         printf("Après rra - head : %d\n", stack_a->head->number);
-   //     }
     }
 }
+
+void push_swap(t_stack **stack_a, t_stack **stack_b)
+{
+    if (!stack_a || !*stack_a || !(*stack_a)->head || (*stack_a)->size <= 1)
+        return;
+
+    // If already sorted, return
+    if (is_sorted(*stack_a))
+        return;
+
+    // Sort based on stack size
+    if ((*stack_a)->size == 2)
+    {
+        if ((*stack_a)->head->number > (*stack_a)->head->next->number)
+            sa(&(*stack_a)->head);
+        return;
+    }
+    
+    if ((*stack_a)->size == 3)
+    {
+        sort_small_stack(*stack_a);
+        return;
+    }
+
+    // For larger stacks
+    while ((*stack_a)->size > 3 && !is_sorted(*stack_a))
+    {
+        bring_min_to_top(*stack_a);
+        pb(&((*stack_a)->head), &((*stack_b)->head));
+        (*stack_a)->size--;
+        (*stack_b)->size++;
+    }
+
+    if ((*stack_a)->size == 3)
+        sort_small_stack(*stack_a);
+
+    // Push back elements from B to A
+    while ((*stack_b)->size > 0)
+    {
+        pa(&((*stack_a)->head), &((*stack_b)->head));
+        (*stack_a)->size++;
+        (*stack_b)->size--;
+    }
+}
+
+// void push_swap(t_stack **stack_a, t_stack **stack_b)
+// {
+//     if (stack_a == NULL || *stack_a == NULL || (*stack_a)->head == NULL)
+//         return;
+
+//     while ((*stack_a)->size > 3)
+//     {
+//         if ((*stack_a)->head == NULL || (*stack_a)->size <= 0)
+//             return;
+        
+//         bring_min_to_top(*stack_a); 
+
+//         if ((*stack_a)->head == NULL || (*stack_a)->head->next == NULL)
+//             return;
+
+//         pb(&((*stack_a)->head), &((*stack_b)->head)); 
+ 
+//         if (!((*stack_a)->head->next))
+//             return;
+            
+//         if ((*stack_a)->head != NULL)
+//             (*stack_a)->size--;
+//         else
+//             (*stack_a)->size = 0;
+
+//         (*stack_b)->size++;
+
+//         if ((*stack_a)->size < 0 || (*stack_b)->size < 0)
+//             return;
+//     }
+
+//     if ((*stack_a)->size == 3)
+//         sort_small_stack(*stack_a);
+
+//     while ((*stack_b)->size > 0)
+//     {
+//         if ((*stack_b)->head == NULL || (*stack_b)->head->next == NULL)
+//         {
+//             pa(&((*stack_a)->head), &((*stack_b)->head));
+//             return;
+//         }
+//         else 
+//         {
+//             pa(&((*stack_a)->head), &((*stack_b)->head));
+//             (*stack_a)->size++;
+//             (*stack_b)->size--;
+//         }
+//     }
+
+//     if (!is_sorted(*stack_a))  
+//     {
+//         while (!is_sorted(*stack_a))
+//             ra(&((*stack_a)->head));
+//     }
+// }
 
 // Fonction principale
 // void push_swap(t_stack **stack_a, t_stack **stack_b)
@@ -209,59 +301,3 @@ void bring_min_to_top(t_stack *stack_a)
 //        }
 //     }
 // }
-
-void push_swap(t_stack **stack_a, t_stack **stack_b)
-{
-    if (stack_a == NULL || *stack_a == NULL || (*stack_a)->head == NULL)
-        return;
-
-    while ((*stack_a)->size > 3)
-    {
-        if ((*stack_a)->head == NULL || (*stack_a)->size <= 0)
-            return;
-        
-        bring_min_to_top(*stack_a); 
-
-        if ((*stack_a)->head == NULL || (*stack_a)->head->next == NULL)
-            return;
-
-        pb(&((*stack_a)->head), &((*stack_b)->head)); 
- 
-        if (!((*stack_a)->head->next))
-            return;
-            
-        if ((*stack_a)->head != NULL)
-            (*stack_a)->size--;
-        else
-            (*stack_a)->size = 0;
-
-        (*stack_b)->size++;
-
-        if ((*stack_a)->size < 0 || (*stack_b)->size < 0)
-            return;
-    }
-
-    if ((*stack_a)->size == 3)
-        sort_small_stack(*stack_a);
-
-    while ((*stack_b)->size > 0)
-    {
-        if ((*stack_b)->head == NULL || (*stack_b)->head->next == NULL)
-        {
-            pa(&((*stack_a)->head), &((*stack_b)->head));
-            return;
-        }
-        else 
-        {
-            pa(&((*stack_a)->head), &((*stack_b)->head));
-            (*stack_a)->size++;
-            (*stack_b)->size--;
-        }
-    }
-
-    if (!is_sorted(*stack_a))  
-    {
-        while (!is_sorted(*stack_a))
-            ra(&((*stack_a)->head));
-    }
-}

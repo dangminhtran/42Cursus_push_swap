@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <../libft/libft.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -29,6 +30,7 @@ typedef struct s_stack
     t_list	*head;
     int		size;
 }			t_stack;
+
 
 // OPERATIONS
 void sa(t_list **a);
@@ -63,5 +65,10 @@ void sort_small_stack(t_stack *stack_a);
 int find_min_index(t_list *stack);
 void bring_min_to_top(t_stack *stack_a);
 void push_swap(t_stack **stack_a, t_stack **stack_b);
+
+// AJOUT
+void sort_three(t_stack *stack);
+int find_min_position(t_stack *stack);
+
 
 #endif

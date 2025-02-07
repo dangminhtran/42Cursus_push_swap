@@ -63,7 +63,6 @@ void error_exit(t_stack *stack_a, t_stack *stack_b)
         free_stack(stack_a);
     if (stack_b)
         free_stack(stack_b);
-//    fprintf(stderr, "Error\n");
     write(1, "Error in error_exit function\n", 6);
     exit(EXIT_FAILURE);
 }
