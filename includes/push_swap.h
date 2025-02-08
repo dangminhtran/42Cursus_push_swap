@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:40:11 by dangtran          #+#    #+#             */
-/*   Updated: 2025/01/18 19:20:42 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/08 18:16:01 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,24 @@ void error_exit(t_stack *stack_a, t_stack *stack_b);
 void print_stack(t_stack *stack);
 int is_sorted(t_stack *stack);
 void sort_small_stack(t_stack *stack_a);
-int find_min_index(t_list *stack);
-void bring_min_to_top(t_stack *stack_a);
-void push_swap(t_stack **stack_a, t_stack **stack_b);
 
-// AJOUT
-void sort_three(t_stack *stack);
+// AJOUT V1
+// void sort_three(t_stack *stack);
 int find_min_position(t_stack *stack);
+// int get_max(t_stack *stack);
+int *copy_and_sort_stack(t_stack *stack);
 
+// AJOUT V2
+void handle_small_stack(t_stack **stack_a, t_stack **stack_b);
+int get_chunk_count(int size);
+void rotate_to_closest(t_stack **stack, int chunk_max, char stack_name);
+int count_chunk_numbers(t_stack *stack, int chunk_max);
+void process_chunk(t_stack **stack_a, t_stack **stack_b, int chunk_max);
+void sort_chunks(t_stack **stack_a, t_stack **stack_b);
+void push_back_sorted(t_stack **stack_a, t_stack **stack_b);
+void rotate_to_max(t_stack **stack_b);
+int find_max_position(t_stack *stack);
+
+void push_swap(t_stack **stack_a, t_stack **stack_b);
 
 #endif
