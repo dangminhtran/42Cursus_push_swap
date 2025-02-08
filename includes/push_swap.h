@@ -17,11 +17,12 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <../libft/libft.h>
-# include <limits.h>
+#include <limits.h>
 
 typedef struct s_list
 {
     int				number;
+    int             index;
     struct s_list	*next;
 }					t_list;
 
@@ -30,7 +31,6 @@ typedef struct s_stack
     t_list	*head;
     int		size;
 }			t_stack;
-
 
 // OPERATIONS
 void sa(t_list **a);
@@ -64,10 +64,9 @@ int is_sorted(t_stack *stack);
 void sort_small_stack(t_stack *stack_a);
 
 // AJOUT V1
-// void sort_three(t_stack *stack);
 int find_min_position(t_stack *stack);
 // int get_max(t_stack *stack);
-int *copy_and_sort_stack(t_stack *stack);
+// int *copy_and_sort_stack(t_stack *stack);
 
 // AJOUT V2
 void handle_small_stack(t_stack **stack_a, t_stack **stack_b);
@@ -79,6 +78,8 @@ void sort_chunks(t_stack **stack_a, t_stack **stack_b);
 void push_back_sorted(t_stack **stack_a, t_stack **stack_b);
 void rotate_to_max(t_stack **stack_b);
 int find_max_position(t_stack *stack);
+
+// AJOUT V3
 
 void push_swap(t_stack **stack_a, t_stack **stack_b);
 
