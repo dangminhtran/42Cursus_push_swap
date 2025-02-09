@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:30:14 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 17:12:40 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:42:10 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,20 @@ void	optimize_b_stack(t_stack **stack_b, int min, int range)
 
 void	push_efficient_chunks(t_stack **stack_a, t_stack **stack_b)
 {
-	int	num_chunks;
-	int	range;
-	int	chunk_size;
-	int	current_max;
-	int	closest_pos;
-    int min;
-    int max;
-    // int value[3];
+	int		range;
+	int		closest_pos;
+	int		min;
+	t_chunk	chunk;
 
-    min = 0;
-    max = 0;
-    initialize_variables(stack_a, &num_chunks, &range, &chunk_size, &current_max, min, max);
+	range = 0;
+	min = 0;
+	initialize_variables(&chunk, stack_a);
 	while ((*stack_a)->size > 0)
 	{
-		closest_pos = find_closest_pos(stack_a, current_max);
+		closest_pos = find_closest_pos(stack_a, chunk.current_max);
 		if (closest_pos == -1)
 		{
-			current_max += chunk_size;
+			chunk.current_max += chunk.chunk_size;
 			continue ;
 		}
 		smart_rotate(stack_a, closest_pos);

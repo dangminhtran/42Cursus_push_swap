@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 17:04:58 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:51:22 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,6 @@ int	main(int argc, char **argv)
 	reverse_stack(stack_a);
 	if (!is_sorted(stack_a))
 		push_swap(&stack_a, &stack_b);
-
-    // Pour débugguer
-    // printf("Stack A:\n");
-    // print_stack(stack_a);
-	// free_stacks(stack_a, stack_b);
-	// return (0);
 }
 
 // Pour débugguer

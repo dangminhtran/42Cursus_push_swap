@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 17:15:43 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 16:03:10 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:15:05 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b)
 	if ((*stack_a)->size <= 3)
 	{
 		sort_small_stack(*stack_a);
+		free_stacks(*stack_a, *stack_b);
 		return ;
 	}
 	if ((*stack_a)->size <= 5)
@@ -81,8 +82,10 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b)
 			(*stack_a)->size++;
 			(*stack_b)->size--;
 		}
+		free_stacks(*stack_a, *stack_b);
 		return ;
 	}
 	push_efficient_chunks(stack_a, stack_b);
 	optimize_push_back(stack_a, stack_b);
+	free_stacks(*stack_a, *stack_b);
 }

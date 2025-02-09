@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:11:52 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 16:58:24 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:20:16 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ int	define_num_chunks(int size)
 	return (11);
 }
 
-void	initialize_variables(t_stack **stack_a, int *num_chunks, int *range,
-		int *chunk_size, int *current_max, int min, int max)
+void	initialize_variables(t_chunk *chunk, t_stack **stack_a)
 {
-	*num_chunks = define_num_chunks((*stack_a)->size);
-	find_min_max(stack_a, &min, &max);
-	*range = max - min;
-	*chunk_size = (*range / *num_chunks) + 1;
-	*current_max = min + *chunk_size;
+	chunk->num_chunks = define_num_chunks((*stack_a)->size);
+	find_min_max(stack_a, &chunk->min, &chunk->max);
+	chunk->range = chunk->max - chunk->min;
+	chunk->chunk_size = (chunk->range / chunk->num_chunks) + 1;
+	chunk->current_max = chunk->min + chunk->chunk_size;
 }

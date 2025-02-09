@@ -590,8 +590,7 @@ void sort_chunks(t_stack **stack_a, t_stack **stack_b)
     }
 } */
 
-/*
-static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
+/* static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
 {
     while ((*stack_b)->size > 0)
     {

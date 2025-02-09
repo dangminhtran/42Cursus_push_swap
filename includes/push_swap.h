@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:40:11 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 17:04:35 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:16:00 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ typedef struct s_stack
 	t_list			*head;
 	int				size;
 }				t_stack;
+
+typedef struct s_chunk
+{
+    int				min;
+    int				max;
+    int				range;
+    int				chunk_size;
+    int				current_max;
+    int				num_chunks;
+}				t_chunk;
 
 // OPERATIONS
 void				sa(t_list **a);
@@ -72,9 +82,10 @@ void				push_efficient_chunks(t_stack **stack_a, t_stack **stack_b);
 
 // UTILS
 int					define_num_chunks(int size);
-void				initialize_variables(t_stack **stack_a, int *num_chunks,
-						int *range, int *chunk_size, int *current_max, int min,
-						int max);
+// void				initialize_variables(t_stack **stack_a, int *num_chunks,
+// 						int *range, int *chunk_size, int *current_max, int min,
+// 						int max);
+void initialize_variables(t_chunk *chunk, t_stack **stack_a);
 
 // MAIN
 int					fill_stack_with_args(t_stack *stack, int argc, char **argv);

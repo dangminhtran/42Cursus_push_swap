@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:50:12 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 16:20:12 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:04:11 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,15 @@ void	free_stack(t_stack *stack)
 
 void	free_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-	free_stack(stack_a);
-	free_stack(stack_b);
-}
-
-void	error_exit(t_stack *stack_a, t_stack *stack_b)
-{
 	if (stack_a)
 		free_stack(stack_a);
 	if (stack_b)
 		free_stack(stack_b);
+}
+
+void	error_exit(t_stack *stack_a, t_stack *stack_b)
+{
+	free_stacks(stack_a, stack_b);
 	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
 }
