@@ -6,7 +6,7 @@
 #    By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/17 20:49:35 by dangtran          #+#    #+#              #
-#    Updated: 2025/01/18 19:25:54 by dangtran         ###   ########.fr        #
+#    Updated: 2025/02/09 13:06:10 by dangtran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC=cc
 
 CFLAGS= -Wall -Wextra -Werror -I${HEADER_DIR} -g
 
-SRCS_DIR = 	$(addprefix sources/,  parsing.c logic.c push_swap_bis.c main.c push.c swap.c rotate.c reverse_rotate.c) $(LIBFT)
+SRCS_DIR = 	$(addprefix sources/, parsing.c manage.c push_swap.c main.c push.c swap.c rotate.c reverse_rotate.c) $(LIBFT)
 
 SRCS_OBJ = ${SRCS_DIR:.c=.o}
 

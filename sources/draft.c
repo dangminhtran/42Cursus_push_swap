@@ -1,90 +1,119 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap_bis.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 17:15:43 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/08 18:15:59 by dangtran         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "push_swap.h"
-
-// V0
-int is_sorted(t_stack *stack)
+// Pour remplir la pile
+/* int fill_stack(t_stack *stack, char **args, int argc)
 {
-    t_list *current = stack->head;
-    while (current && current->next)
+    for (int i = 0; i < argc - 1; i++)
     {
-        if (current->number > current->next->number)
+        t_list *new_node = malloc(sizeof(t_list));
+        if (!new_node)
             return (0);
-        current = current->next;
+
+        new_node->number = ft_atoi(args[i]);
+        new_node->next = stack->head; // Ajout au début
+        stack->head = new_node;
+        stack->size++;
     }
     return (1);
-}
+} */
 
-void sort_three(t_stack *stack)
+// Verifier si les nombres sont dans le bon ordre
+/* int check_order(char **argv)
 {
-    int first = stack->head->number;
-    int second = stack->head->next->number;
-    int third = stack->head->next->next->number;
-
-    if (first > second && second < third && first < third)
-        sa(&stack->head);
-    else if (first > second && second > third)
-    {
-        sa(&stack->head);
-        rra(&stack->head);
-    }
-    else if (first > second && second < third && first > third)
-        ra(&stack->head);
-    else if (first < second && second > third && first < third)
-    {
-        sa(&stack->head);
-        ra(&stack->head);
-    }
-    else if (first < second && second > third && first > third)
-        rra(&stack->head);
-}
-
-void sort_small_stack(t_stack *stack)
-{
-    if (stack->size <= 1)
-        return;
-    if (stack->size == 2)
-    {
-        if (stack->head->number > stack->head->next->number)
-            sa(&stack->head);
-        return;
-    }
-    if (stack->size == 3)
-        sort_three(stack);
-}
-
-int find_min_position(t_stack *stack)
-{
-    t_list *current = stack->head;
-    int min = current->number;
-    int pos = 0;
-    int min_pos = 0;
+    int i;
     
-    while (current)
+    i = 1;
+    while (argv[i] && argv[i + 1])
     {
-        if (current->number < min)
-        {
-            min = current->number;
-            min_pos = pos;
-        }
-        pos++;
-        current = current->next;
+        if (ft_atoi(argv[i]) > ft_atoi(argv[i + 1]))
+            return (0);
+        i++;
     }
-    return (min_pos);
+    return (1);
+}*/ 
+
+/* char **parse_args(int argc, char **argv)
+{
+    char **args = malloc(sizeof(char *) * argc);
+    if (!args)
+        return (NULL);
+
+    int i = 1;
+    while (i < argc)
+    {
+        args[i - 1] = strdup(argv[i]);
+        if (!args[i - 1])
+        {
+            free_args(args, i - 1);
+            return (NULL);
+        }
+        i++;
+    }
+    args[argc - 1] = NULL;
+    return (args);
+} */
+
+/* void free_args(char **args, int argc)
+{
+    int i;
+
+    i = 0;
+    while (i < argc)
+    {
+        free(args[i]);
+        i++;
+    }
+    free(args);
+}*/ 
+ 
+/* int validate_args(char **args, int argc)
+{
+    int i;
+
+    i = 0;
+    // Vérifier que chaque argument est un nombre valide
+    while (args[i])
+    {
+        int j = 0;
+        if (args[i][j] == '-' || args[i][j] == '+')
+            j++;
+        while (args[i][j])
+        {
+            if (args[i][j] < '0' || args[i][j] > '9')
+                return (0);
+            j++;
+        }
+        i++;
+    }
+
+    // Vérifier si les arguments sont dans la plage valide
+    i = 0;
+    while (args[i])
+    {
+        long long num = ft_atoi(args[i]);
+        if (num > 2147483647 || num < -2147483647)
+            return (0);
+        i++;
+    }
+    
+    // Vérifier l'unicité des arguments
+    while (i < argc - 1)
+    {
+        int j = i + 1;
+        while (j < argc - 1)
+        {
+            if (ft_atoi(args[i]) == ft_atoi(args[j]))
+                return (0);
+            j++;
+        }
+    }
+
+    return (1);
 }
+*/
+
+// Fichir push_swap.c
 
 // V0 - FONCTIONNE MAIS PAS OPTIMISEE
-// void push_swap(t_stack **stack_a, t_stack **stack_b)
+/* void push_swap(t_stack **stack_a, t_stack **stack_b)
 // {
 //     if (!stack_a || !*stack_a || (*stack_a)->size <= 1)
 //         return;
@@ -115,7 +144,7 @@ int find_min_position(t_stack *stack)
 //         (*stack_a)->size++;
 //         (*stack_b)->size--;
 //     }
-// }
+// }*/
 
 // AJOUT DE FONCTIONS V1
 /*
@@ -183,32 +212,7 @@ int *copy_and_sort_stack(t_stack *stack)
 */
 
 // AJOUT DE FONCTIONS V2
-
- void handle_small_stack(t_stack **stack_a, t_stack **stack_b)
-{
-    while ((*stack_a)->size > 3)
-    {
-        int min_pos = find_min_position(*stack_a);
-        int size = (*stack_a)->size;
-        
-        if (min_pos <= size / 2)
-        {
-            for (int i = 0; i < min_pos; i++)
-                ra(&(*stack_a)->head);
-        }
-        else
-        {
-            for (int i = 0; i < size - min_pos; i++)
-                rra(&(*stack_a)->head);
-        }
-        pb(&(*stack_a)->head, &(*stack_b)->head);
-        (*stack_a)->size--;
-        (*stack_b)->size++;
-    }
-    sort_small_stack(*stack_a);
-}
-/*
-int get_chunk_count(int size)
+/* int get_chunk_count(int size)
 {
     if (size <= 100)
         return (5);
@@ -345,8 +349,7 @@ void sort_chunks(t_stack **stack_a, t_stack **stack_b)
 }
 */
 
-/*
-void push_swap(t_stack **stack_a, t_stack **stack_b)
+/* void push_swap(t_stack **stack_a, t_stack **stack_b)
 {
     if (!stack_a || !*stack_a || (*stack_a)->size <= 1 || is_sorted(*stack_a))
         return;
@@ -372,7 +375,6 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
     sort_chunks(stack_a, stack_b);
 }
 */
-
 
 // CA FONCTIONNE - V1
 // void push_swap(t_stack **stack_a, t_stack **stack_b)
@@ -517,24 +519,23 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
 //     free(sorted);
 // }
 
-// V3
-
-// static void smart_rotate(t_stack **stack, int pos, char stack_name)
-// {
-//     int size = (*stack)->size;
+// AJOUT V3
+/* static void smart_rotate(t_stack **stack, int pos, char stack_name)
+{
+    int size = (*stack)->size;
     
-//     if (pos <= size / 2)
-//     {
-//         while (pos-- > 0)
-//             (stack_name == 'a') ? ra(&(*stack)->head) : rb(&(*stack)->head);
-//     }
-//     else
-//     {
-//         pos = size - pos;
-//         while (pos-- > 0)
-//             (stack_name == 'a') ? rra(&(*stack)->head) : rrb(&(*stack)->head);
-//     }
-// }
+    if (pos <= size / 2)
+    {
+        while (pos-- > 0)
+            (stack_name == 'a') ? ra(&(*stack)->head) : rb(&(*stack)->head);
+    }
+    else
+    {
+        pos = size - pos;
+        while (pos-- > 0)
+            (stack_name == 'a') ? rra(&(*stack)->head) : rrb(&(*stack)->head);
+    }
+} */
 
 /* static void push_efficient_chunks(t_stack **stack_a, t_stack **stack_b)
 {
@@ -589,7 +590,6 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
     }
 } */
 
-
 /*
 static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
 {
@@ -604,146 +604,3 @@ static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
     }
 }
 */
-
-static void push_efficient_chunks(t_stack **stack_a, t_stack **stack_b)
-{
-    int size = (*stack_a)->size;
-    // Reduce number of chunks for better efficiency
-    int num_chunks = (size <= 100) ? 5 : 11;
-    
-    int min = INT_MAX;
-    int max = INT_MIN;
-    t_list *current = (*stack_a)->head;
-    
-    while (current)
-    {
-        if (current->number < min)
-            min = current->number;
-        if (current->number > max)
-            max = current->number;
-        current = current->next;
-    }
-    
-    int range = max - min;
-    int chunk_size = (range / num_chunks) + 1; // TODO - Pourquoi + 1 ?
-    int current_max = min + chunk_size;
-    
-    while ((*stack_a)->size > 0)
-    {
-        t_list *tmp = (*stack_a)->head;
-        int closest_pos = -1;
-        int pos = 0;
-        
-        while (tmp)
-        {
-            if (tmp->number <= current_max)
-            {
-                if (closest_pos == -1 || 
-                    (pos <= (*stack_a)->size / 2 && pos < closest_pos) ||
-                    (pos > (*stack_a)->size / 2 && ((*stack_a)->size - pos) < ((*stack_a)->size - closest_pos)))
-                {
-                    closest_pos = pos;
-                }
-            }
-            pos++;
-            tmp = tmp->next;
-        }
-        
-        if (closest_pos == -1)
-        {
-            current_max += chunk_size;
-            continue;
-        }
-        
-        // Smart rotation to closest number
-        if (closest_pos <= (*stack_a)->size / 2)
-        {
-            while (closest_pos-- > 0)
-                ra(&(*stack_a)->head);
-        }
-        else
-        {
-            closest_pos = (*stack_a)->size - closest_pos;
-            while (closest_pos-- > 0)
-                rra(&(*stack_a)->head);
-        }
-        
-        pb(&(*stack_a)->head, &(*stack_b)->head);
-        (*stack_a)->size--;
-        (*stack_b)->size++;
-        
-        // Optimize B stack position for final sorting
-        if ((*stack_b)->size > 1)
-        {
-            if ((*stack_b)->head->number < min + (range / 2))
-                rb(&(*stack_b)->head);
-        }
-    }
-}
-
-static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
-{
-    while ((*stack_b)->size > 0)
-    {
-        // Find the maximum number and its position
-        t_list *tmp = (*stack_b)->head;
-        int max = tmp->number;
-        int max_pos = 0;
-        int pos = 0;
-        
-        while (tmp)
-        {
-            if (tmp->number > max)
-            {
-                max = tmp->number;
-                max_pos = pos;
-            }
-            pos++;
-            tmp = tmp->next;
-        }
-        
-        // Optimize rotation for maximum number
-        if (max_pos <= (*stack_b)->size / 2)
-        {
-            while (max_pos-- > 0)
-                rb(&(*stack_b)->head);
-        }
-        else
-        {
-            max_pos = (*stack_b)->size - max_pos;
-            while (max_pos-- > 0)
-                rrb(&(*stack_b)->head);
-        }
-        
-        pa(&(*stack_a)->head, &(*stack_b)->head);
-        (*stack_a)->size++;
-        (*stack_b)->size--;
-    }
-}
-
-void push_swap(t_stack **stack_a, t_stack **stack_b)
-{
-        if (!stack_a || !*stack_a || (*stack_a)->size <= 1 || is_sorted(*stack_a))
-        return;
-
-    if ((*stack_a)->size <= 3)
-    {
-        sort_small_stack(*stack_a);
-        return;
-    }
-    
-    if ((*stack_a)->size <= 5)
-    {
-        handle_small_stack(stack_a, stack_b);
-        while ((*stack_b)->size > 0)
-        {
-            pa(&(*stack_a)->head, &(*stack_b)->head);
-            (*stack_a)->size++;
-            (*stack_b)->size--;
-        }
-        return;
-    }
-
-    push_efficient_chunks(stack_a, stack_b);
-    optimize_push_back(stack_a, stack_b);
-}

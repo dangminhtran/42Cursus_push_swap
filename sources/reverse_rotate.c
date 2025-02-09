@@ -1,46 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/09 12:07:21 by dangtran          #+#    #+#             */
+/*   Updated: 2025/02/09 12:07:47 by dangtran         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void rra(t_list **stack)
+void	rra(t_list **stack)
 {
-    if (*stack == NULL || (*stack)->next == NULL)
-        return;
+	t_list	*prev;
+	t_list	*current;
 
-    t_list *prev = NULL;
-    t_list *current = *stack;
-
-    while (current->next)  // Aller jusqu'à l'avant-dernier élément
-    {
-        prev = current;
-        current = current->next;
-    }
-
-    prev->next = NULL;        // Déconnecter le dernier élément
-    current->next = *stack;   // Ajouter le dernier élément au début
-    *stack = current;         // Mettre à jour la tête de la pile
-    write(1, "rra\n", 4);
+	if (*stack == NULL || (*stack)->next == NULL)
+		return ;
+	prev = NULL;
+	current = *stack;
+	while (current->next)
+	{
+		prev = current;
+		current = current->next;
+	}
+	prev->next = NULL;
+	current->next = *stack;
+	*stack = current;
+	write(1, "rra\n", 4);
 }
 
-void rrb(t_list **b)
+void	rrb(t_list **b)
 {
-    t_list *tmp;
-    t_list *tmp2;
+	t_list	*tmp;
+	t_list	*tmp2;
 
-    if (!*b || !(*b)->next)
-        return;
-
-    tmp = *b;
-    while (tmp->next->next)  // Aller jusqu'à l'avant-dernier élément
-        tmp = tmp->next;
-
-    tmp2 = tmp->next;  // Sauvegarder le dernier élément
-    tmp->next = NULL;  // Déconnecter l'avant-dernier élément
-    tmp2->next = *b;   // Ajouter le dernier élément au début de la pile
-    *b = tmp2;         // Mettre à jour la tête de la pile
-    write(1, "rrb\n", 4);
+	if (!*b || !(*b)->next)
+		return ;
+	tmp = *b;
+	while (tmp->next->next)
+		tmp = tmp->next;
+	tmp2 = tmp->next;
+	tmp->next = NULL;
+	tmp2->next = *b;
+	*b = tmp2;
+	write(1, "rrb\n", 4);
 }
 
-void rrr(t_list **a, t_list **b)
+void	rrr(t_list **a, t_list **b)
 {
-    rra(a);
-    rrb(b);
+	rra(a);
+	rrb(b);
 }
