@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 18:50:12 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 12:57:07 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:20:12 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ t_stack	*init_stack(void)
 	return (stack);
 }
 
+int	init_stacks(t_stack **stack_a, t_stack **stack_b)
+{
+	*stack_a = init_stack();
+	if (!*stack_a)
+	{
+		write(2, "Error Init A\n", 13);
+		return (0);
+	}
+	*stack_b = init_stack();
+	if (!*stack_b)
+	{
+		write(2, "Error Init B\n", 13);
+		free_stack(*stack_a);
+		return (0);
+	}
+	return (1);
+}
+
 void	free_stack(t_stack *stack)
 {
 	t_list	*current;
@@ -42,10 +60,10 @@ void	free_stack(t_stack *stack)
 	free(stack);
 }
 
-void    free_stacks(t_stack *stack_a, t_stack *stack_b)
+void	free_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-   free_stack(stack_a);
-   free_stack(stack_b);
+	free_stack(stack_a);
+	free_stack(stack_b);
 }
 
 void	error_exit(t_stack *stack_a, t_stack *stack_b)
@@ -57,14 +75,3 @@ void	error_exit(t_stack *stack_a, t_stack *stack_b)
 	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
 }
-
-// Pour débugguer
-/* void print_stack(t_stack *stack)
-{
-	t_list *current = stack->head;
-	while (current)
-	{
-		printf("%d\n", current->number);
-		current = current->next;
-	}
-	p */

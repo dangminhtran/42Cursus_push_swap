@@ -604,3 +604,89 @@ static void optimize_push_back(t_stack **stack_a, t_stack **stack_b)
     }
 }
 */
+
+/* static void	push_efficient_chunks(t_stack **stack_a, t_stack **stack_b)
+{
+	int		size;
+	int		num_chunks;
+	int		min;
+	int		max;
+	t_list	*current;
+	int		range;
+	int		current_max;
+	t_list	*tmp;
+	int		closest_pos;
+	int		pos;
+
+	size = (*stack_a)->size;
+	num_chunks = (size <= 100) ? 5 : 11;
+	min = INT_MAX;
+	max = INT_MIN;
+	current = (*stack_a)->head;
+    // TODO - Faire une fonction pour definir le min et le max ?
+	while (current)
+	{
+		if (current->number < min)
+			min = current->number;
+		if (current->number > max)
+			max = current->number;
+		current = current->next;
+	}
+	range = max - min;
+	int chunk_size = (range / num_chunks) + 1;
+	current_max = min + chunk_size;
+	while ((*stack_a)->size > 0)
+	{
+		tmp = (*stack_a)->head;
+		closest_pos = -1;
+		pos = 0;
+		while (tmp)
+		{
+			if (tmp->number <= current_max)
+			{
+				if (closest_pos == -1 || (pos <= (*stack_a)->size / 2
+						&& pos < closest_pos) || (pos > (*stack_a)->size / 2
+						&& ((*stack_a)->size - pos) < ((*stack_a)->size - closest_pos)))
+					closest_pos = pos;
+			}
+			pos++;
+			tmp = tmp->next;
+		}
+		if (closest_pos == -1)
+		{
+			current_max += chunk_size;
+			continue ;
+		}
+		// Smart rotation to closest number
+		if (closest_pos <= (*stack_a)->size / 2)
+		{
+			while (closest_pos-- > 0)
+				ra(&(*stack_a)->head);
+		}
+		else
+		{
+			closest_pos = (*stack_a)->size - closest_pos;
+			while (closest_pos-- > 0)
+				rra(&(*stack_a)->head);
+		}
+		pb(&(*stack_a)->head, &(*stack_b)->head);
+		(*stack_a)->size--;
+		(*stack_b)->size++;
+		// Optimize B stack position for final sorting
+		if ((*stack_b)->size > 1)
+		{
+			if ((*stack_b)->head->number < min + (range / 2))
+				rb(&(*stack_b)->head);
+		}
+	}
+} */
+
+// void	initialize_variables(t_stack **stack_a, int *num_chunks, int *range,
+// 		int *chunk_size, int *current_max, int min, int max)
+// {
+// 	*num_chunks = define_num_chunks((*stack_a)->size);
+// 	find_min_max(stack_a, &min, &max);
+// 	*range = max - min;
+// 	*chunk_size = (*range / *num_chunks) + 1;
+// 	*current_max = min + *chunk_size;
+// }

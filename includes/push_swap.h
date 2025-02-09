@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:40:11 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 13:09:46 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:04:35 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_stack
 {
 	t_list			*head;
 	int				size;
-}					t_stack;
+}				t_stack;
 
 // OPERATIONS
 void				sa(t_list **a);
@@ -51,23 +51,37 @@ int					check_range(char **argv);
 
 // MANAGE
 t_stack				*init_stack(void);
+int					init_stacks(t_stack **stack_a, t_stack **stack_b);
 void				free_stack(t_stack *stack);
 void				free_stacks(t_stack *stack_a, t_stack *stack_b);
 void				error_exit(t_stack *stack_a, t_stack *stack_b);
-// void				print_stack(t_stack *stack);
 
-// MAIN
-int					init_stacks(t_stack **stack_a, t_stack **stack_b);
-int	fill_stack_with_args(t_stack *stack, int argc, char **argv);
-void	reverse_stack(t_stack *stack);
-
-// PUSH_SWAP
+// SORTING
 int					is_sorted(t_stack *stack);
-void	sort_three(t_stack *stack);
+void				sort_three(t_stack *stack);
 void				sort_small_stack(t_stack *stack_a);
 int					find_min_position(t_stack *stack);
 void				handle_small_stack(t_stack **stack_a, t_stack **stack_b);
 
+// LOGIC
+void				find_min_max(t_stack **stack_a, int *min, int *max);
+int					find_closest_pos(t_stack **stack_a, int current_max);
+void				smart_rotate(t_stack **stack_a, int closest_pos);
+void				optimize_b_stack(t_stack **stack_b, int min, int range);
+void				push_efficient_chunks(t_stack **stack_a, t_stack **stack_b);
+
+// UTILS
+int					define_num_chunks(int size);
+void				initialize_variables(t_stack **stack_a, int *num_chunks,
+						int *range, int *chunk_size, int *current_max, int min,
+						int max);
+
+// MAIN
+int					fill_stack_with_args(t_stack *stack, int argc, char **argv);
+void				reverse_stack(t_stack *stack);
+// void				print_stack(t_stack *stack);
+
+// PUSH_SWAP
 void				push_swap(t_stack **stack_a, t_stack **stack_b);
 
 #endif

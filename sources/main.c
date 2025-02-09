@@ -6,25 +6,11 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 13:11:27 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:04:58 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	init_stacks(t_stack **stack_a, t_stack **stack_b)
-{
-	*stack_a = init_stack();
-	if (!*stack_a)
-		return (0);
-	*stack_b = init_stack();
-	if (!*stack_b)
-	{
-		free_stack(*stack_a);
-		return (0);
-	}
-	return (1);
-}
 
 int	fill_stack_with_args(t_stack *stack, int argc, char **argv)
 {
@@ -75,24 +61,36 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (0);
 	if (!init_stacks(&stack_a, &stack_b))
-	{
-		write(2, "Error\n", 6);
 		return (0);
-	}
 	if (!check_args(argv) || !check_uniques(argv) || !check_range(argv))
 	{
-        free_stacks(stack_a, stack_b);
+		free_stacks(stack_a, stack_b);
 		return (0);
 	}
 	if (!fill_stack_with_args(stack_a, argc, argv))
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error in main\n", 14);
 		free_stacks(stack_a, stack_b);
 		return (0);
 	}
 	reverse_stack(stack_a);
 	if (!is_sorted(stack_a))
 		push_swap(&stack_a, &stack_b);
-	free_stacks(stack_a, stack_b);
-	return (0);
+
+    // Pour débugguer
+    // printf("Stack A:\n");
+    // print_stack(stack_a);
+	// free_stacks(stack_a, stack_b);
+	// return (0);
 }
+
+// Pour débugguer
+// void print_stack(t_stack *stack)
+// {
+// 	t_list *current = stack->head;
+// 	while (current)
+// 	{
+// 		printf("%d\n", current->number);
+// 		current = current->next;
+// 	}
+// }
