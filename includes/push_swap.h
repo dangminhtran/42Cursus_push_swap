@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:40:11 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/09 17:16:00 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/10 23:33:53 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ typedef struct s_stack
 {
 	t_list			*head;
 	int				size;
-}				t_stack;
+}					t_stack;
 
 typedef struct s_chunk
 {
-    int				min;
-    int				max;
-    int				range;
-    int				chunk_size;
-    int				current_max;
-    int				num_chunks;
-}				t_chunk;
+	int				min;
+	int				max;
+	int				range;
+	int				chunk_size;
+	int				current_max;
+	int				num_chunks;
+}					t_chunk;
 
 // OPERATIONS
 void				sa(t_list **a);
@@ -58,6 +58,13 @@ void				rrr(t_list **a, t_list **b);
 int					check_args(char **argv);
 int					check_uniques(char **argv);
 int					check_range(char **argv);
+
+// PARSING ARGS
+int					ft_count_word(char const *s, char c);
+char				**ft_split(char const *s, char c);
+int	parse_args(t_stack *stack_a, int argc, char **argv);
+int					tab_len(char **tab);
+int	check_duplicates(t_stack *stack_a);
 
 // MANAGE
 t_stack				*init_stack(void);
@@ -82,15 +89,12 @@ void				push_efficient_chunks(t_stack **stack_a, t_stack **stack_b);
 
 // UTILS
 int					define_num_chunks(int size);
-// void				initialize_variables(t_stack **stack_a, int *num_chunks,
-// 						int *range, int *chunk_size, int *current_max, int min,
-// 						int max);
-void initialize_variables(t_chunk *chunk, t_stack **stack_a);
+void				initialize_variables(t_chunk *chunk, t_stack **stack_a);
 
 // MAIN
 int					fill_stack_with_args(t_stack *stack, int argc, char **argv);
 void				reverse_stack(t_stack *stack);
-// void				print_stack(t_stack *stack);
+void				print_stack(t_stack *stack);
 
 // PUSH_SWAP
 void				push_swap(t_stack **stack_a, t_stack **stack_b);

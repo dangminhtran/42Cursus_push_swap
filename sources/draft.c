@@ -622,7 +622,6 @@ void sort_chunks(t_stack **stack_a, t_stack **stack_b)
 	min = INT_MAX;
 	max = INT_MIN;
 	current = (*stack_a)->head;
-    // TODO - Faire une fonction pour definir le min et le max ?
 	while (current)
 	{
 		if (current->number < min)
