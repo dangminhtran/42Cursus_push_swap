@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:51:29 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/10 23:37:26 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:20:12 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,45 +53,54 @@ void	reverse_stack(t_stack *stack)
 	stack->head = prev;
 }
 
+static int	mini_parse_args(t_stack *stack_a, t_stack *stack_b, int argc,
+		char **argv)
+{
+	if (!parse_args(stack_a, argc - 1, &argv[1]) || !check_duplicates(stack_a))
+	{
+		write(2, "Error\n", 6);
+		free_stacks(stack_a, stack_b);
+		return (0);
+	}
+	return (1);
+}
+
+static int	mini_fill_args(t_stack *stack_a, t_stack *stack_b, int argc,
+		char **argv)
+{
+	if (!fill_stack_with_args(stack_a, argc - 1, argv + 1))
+	{
+		write(2, "Error\n", 6);
+		free_stacks(stack_a, stack_b);
+		return (0);
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
-	
+
+	stack_a = NULL;
+	stack_b = NULL;
 	if (argc < 2)
 		return (0);
 	if (argv[1][0] == '\0')
 		return (write(2, "Error\n", 6), 0);
-
 	if (!check_args(argv) || !check_uniques(argv) || !check_range(argv))
 		return (0);
 	if (!init_stacks(&stack_a, &stack_b))
 		return (0);
-	// TODO - A METTRE DANS UNE AUTRE FONCTION
 	if (argc == 2)
-	{
-		if (!parse_args(stack_a, argc - 1, &argv[1]) || !check_duplicates(stack_a))
-		{
-			write(2, "Error\n", 6);
-			free_stacks(stack_a, stack_b);
-			return (0);
-		}
-	}
-	else 
-	{
-		if (!fill_stack_with_args(stack_a, argc - 1, argv + 1))
-		{
-			write(2, "Error\n", 6);
-			free_stacks(stack_a, stack_b);
-			return (0);
-		}
-	}
+		mini_parse_args(stack_a, stack_b, argc, argv);
+	else
+		mini_fill_args(stack_a, stack_b, argc, argv);
 	reverse_stack(stack_a);
 	if (!is_sorted(stack_a))
 		push_swap(&stack_a, &stack_b);
 	else
 		free_stacks(stack_a, stack_b);
-
 }
 
 // Pour débugguer

@@ -6,7 +6,7 @@
 /*   By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 21:12:12 by dangtran          #+#    #+#             */
-/*   Updated: 2025/02/10 23:37:40 by dangtran         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:52:22 by dangtran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_args(char **argv)
 			return (0);
 		while (argv[i][j])
 		{
-			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != ' ' )
+			if ((argv[i][j] < '0' || argv[i][j] > '9') && argv[i][j] != ' ')
 			{
 				write(2, "Error\n", 6);
 				return (0);
@@ -78,13 +78,13 @@ int	check_range(char **argv)
 	}
 	return (1);
 }
-// TODO - A RELIRE
+
 int	parse_args(t_stack *stack_a, int argc, char **argv)
 {
-	int	i;
-	int j;
-	char **split;
-	
+	int		i;
+	int		j;
+	char	**split;
+
 	i = -1;
 	while (++i < argc)
 	{
@@ -100,7 +100,7 @@ int	parse_args(t_stack *stack_a, int argc, char **argv)
 				return (0);
 			}
 		}
-		if(!fill_stack_with_args(stack_a, tab_len(split), split))
+		if (!fill_stack_with_args(stack_a, tab_len(split), split))
 			return (ft_free(split, tab_len(split)), 0);
 		ft_free(split, tab_len(split));
 	}

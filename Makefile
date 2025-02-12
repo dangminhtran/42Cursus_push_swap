@@ -6,7 +6,7 @@
 #    By: dangtran <dangtran@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/17 20:49:35 by dangtran          #+#    #+#              #
-#    Updated: 2025/02/09 15:26:22 by dangtran         ###   ########.fr        #
+#    Updated: 2025/02/12 10:59:50 by dangtran         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_DIR = 	$(addprefix sources/, utils.c logic.c sorting.c parsing.c manage.c p
 
 SRCS_OBJ = ${SRCS_DIR:.c=.o}
 
-LIBFT = $(addprefix libft/, ft_atoi.c)
+LIBFT = $(addprefix libft/, ft_atoi.c ft_split.c)
 
 HEADER_DIR=./includes/
 
